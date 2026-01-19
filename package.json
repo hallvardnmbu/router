@@ -14,9 +14,13 @@
     "@elysiajs/static": "^1.4.7",
     "axios": "^1.13.2",
     "bcryptjs": "^2.4.3",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.6.1",
     "ejs": "^3.1.10",
     "elysia": "^1.4.22",
     "jsonwebtoken": "^9.0.3",
-    "mongodb": "^6.21.0"
+    "mongodb": "^6.21.0",
+    "path": "^0.12.7",
+    "url": "^0.11.4"
   }
 }
