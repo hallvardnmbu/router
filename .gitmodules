@@ -1,0 +1,15 @@
+[submodule "src/dilettant"]
+	path = src/dilettant
+	url = https://github.com/hallvardnmbu/dilettant.git
+[submodule "src/ord"]
+	path = src/ord
+	url = https://github.com/hallvardnmbu/ord.git
+[submodule "src/elektron"]
+	path = src/elektron
+	url = https://github.com/hallvardnmbu/elektron.git
+[submodule "src/lek"]
+	path = src/lek
+	url = https://github.com/hallvardnmbu/lek.git
+[submodule "src/snublejuice"]
+	path = src/snublejuice
+	url = https://github.com/hallvardnmbu/snublejuice.git
