@@ -6,7 +6,7 @@ import elektron from "./elektron/app.js";
 import dilettant from "./dilettant/app.js";
 import snublejuice from "./snublejuice/app.js";
 
-const _PRODUCTION = process.env.ENVIRONMENT.trim() == "production";
+const _PRODUCTION = process.env.ENVIRONMENT.trim() === "production";
 const _PORT = process.env.PORT;
 
 const apps = {};

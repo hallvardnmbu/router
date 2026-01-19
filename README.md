@@ -270,14 +270,14 @@ sudo vim /etc/systemd/system/router.service
 
 ```raw
 [Unit]
-Description=Snuble-app
+Description=Router
 After=network.target
 
 [Service]
 Type=simple
 User=root
 WorkingDirectory=/var/www/router
-Environment=NODE_ENV=production
+Environment=ENVIRONMENT=production
 Environment=PORT=8080
 Environment=MONGO_USR=...
 Environment=MONGO_PWD=...
