@@ -13,3 +13,6 @@
 [submodule "src/snublejuice"]
 	path = src/snublejuice
 	url = https://github.com/hallvardnmbu/snublejuice.git
+[submodule "src/reinli"]
+	path = src/reinli
+	url = https://github.com/hallvardnmbu/reinli.git

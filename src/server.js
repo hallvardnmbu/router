@@ -2,6 +2,7 @@ import { Elysia } from "elysia";
 
 import lek from "./lek/app.js";
 import ord from "./ord/app.js";
+import reinli from "./reinli/app.js";
 import elektron from "./elektron/app.js";
 import dilettant from "./dilettant/app.js";
 import snublejuice from "./snublejuice/app.js";
@@ -21,6 +22,8 @@ if (_PRODUCTION) {
   apps["dilettant.no"] = dilettant;
   apps["www.dilettant.no"] = dilettant;
 
+  apps["reinli.dilettant.no"] = reinli;
+
   apps["snublejuice.no"] = snublejuice;
   apps["www.snublejuice.no"] = snublejuice;
   apps["vinmonopolet.snublejuice.no"] = snublejuice;
@@ -31,6 +34,7 @@ if (_PRODUCTION) {
   apps["dagsord.localhost"] = ord;
   apps["elektron.localhost"] = elektron;
   apps["dilettant.localhost"] = dilettant;
+  apps["reinli.localhost"] = reinli;
 
   apps["localhost"] = snublejuice;
   apps["vinmonopolet.localhost"] = snublejuice;
@@ -74,5 +78,6 @@ if (!_PRODUCTION) {
   console.log(`http://dagsord.localhost:${_PORT}`);
   console.log(`http://elektron.localhost:${_PORT}`);
   console.log(`http://dilettant.localhost:${_PORT}`);
+  console.log(`http://reinli.localhost:${_PORT}`);
   console.log(`http://snake.localhost:${_PORT}`);
 }
