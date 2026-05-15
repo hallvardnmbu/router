@@ -253,10 +253,6 @@ sudo systemctl status router
 
 ```bash
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d snublejuice.no
-sudo certbot --nginx -d www.snublejuice.no
-sudo certbot --nginx -d vinmonopolet.snublejuice.no
-sudo certbot --nginx -d taxfree.snublejuice.no
 sudo certbot --nginx -d lek.snublejuice.no
 sudo certbot --nginx -d snake.snublejuice.no
 sudo certbot --nginx -d dagsord.no
