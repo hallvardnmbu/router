@@ -5,7 +5,6 @@ import ord from "./ord/app.js";
 import reinli from "./reinli/app.js";
 import elektron from "./elektron/app.js";
 import dilettant from "./dilettant/app.js";
-import snublejuice from "./snublejuice/app.js";
 
 const _PRODUCTION = process.env.ENVIRONMENT.trim() === "production";
 const _PORT = process.env.PORT;
@@ -23,23 +22,12 @@ if (_PRODUCTION) {
   apps["www.dilettant.no"] = dilettant;
 
   apps["reinli.dilettant.no"] = reinli;
-
-  apps["snublejuice.no"] = snublejuice;
-  apps["www.snublejuice.no"] = snublejuice;
-  apps["vinmonopolet.snublejuice.no"] = snublejuice;
-  apps["taxfree.snublejuice.no"] = snublejuice;
-  apps["snake.snublejuice.no"] = snublejuice;
 } else {
   apps["lek.localhost"] = lek;
   apps["dagsord.localhost"] = ord;
   apps["elektron.localhost"] = elektron;
   apps["dilettant.localhost"] = dilettant;
   apps["reinli.localhost"] = reinli;
-
-  apps["localhost"] = snublejuice;
-  apps["vinmonopolet.localhost"] = snublejuice;
-  apps["taxfree.localhost"] = snublejuice;
-  apps["snake.localhost"] = snublejuice;
 }
 
 new Elysia()
@@ -71,9 +59,6 @@ new Elysia()
 
 console.log(`Server running at http://localhost:${_PORT}`);
 if (!_PRODUCTION) {
-  console.log(`http://localhost:${_PORT}`);
-  console.log(`http://vinmonopolet.localhost:${_PORT}`);
-  console.log(`http://taxfree.localhost:${_PORT}`);
   console.log(`http://lek.localhost:${_PORT}`);
   console.log(`http://dagsord.localhost:${_PORT}`);
   console.log(`http://elektron.localhost:${_PORT}`);
