@@ -8,9 +8,8 @@ bun upgrade
 cd /var/www/router
 git pull
 
-# To fetch the ord and elektron apps, run:
+# To initialize the submodules.
 # git submodule update --init --recursive
-git submodule update --remote --merge
 
 sudo systemctl daemon-reload
 sudo systemctl restart router
@@ -48,42 +47,6 @@ sudo vim /etc/nginx/sites-available/router
 ```
 
 ```raw
-# lek.snublejuice.no
-server {
-	listen 80;
-	server_name lek.snublejuice.no;
-
-	location / {
-		proxy_pass http://localhost:8080;
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection 'upgrade';
-		proxy_set_header Host $host;
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		proxy_cache_bypass $http_upgrade;
-	}
-}
-
-# snake.snublejuice.no
-server {
-	listen 80;
-	server_name snake.snublejuice.no;
-
-	location / {
-		proxy_pass http://localhost:8080;
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection 'upgrade';
-		proxy_set_header Host $host;
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		proxy_cache_bypass $http_upgrade;
-	}
-}
-
 # dagsord.no
 server {
 	listen 80;
@@ -106,24 +69,6 @@ server {
 server {
 	listen 80;
 	server_name www.dagsord.no;
-
-	location / {
-		proxy_pass http://localhost:8080;
-		proxy_http_version 1.1;
-		proxy_set_header Upgrade $http_upgrade;
-		proxy_set_header Connection 'upgrade';
-		proxy_set_header Host $host;
-		proxy_set_header X-Real-IP $remote_addr;
-		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-		proxy_set_header X-Forwarded-Proto $scheme;
-		proxy_cache_bypass $http_upgrade;
-	}
-}
-
-# elektron.dagsord.no
-server {
-	listen 80;
-	server_name elektron.dagsord.no;
 
 	location / {
 		proxy_pass http://localhost:8080;
@@ -234,7 +179,7 @@ Environment=COOKIE_ENCRYPTION_KEY=...
 Environment=SESSION_SECRET=...
 Environment=SPOTIFY_CLIENT_ID=...
 
-ExecStart=/root/.bun/bin/bun run start
+ExecStart=./start.sh
 Restart=always
 RestartSec=3
 
@@ -253,11 +198,8 @@ sudo systemctl status router
 
 ```bash
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d lek.snublejuice.no
-sudo certbot --nginx -d snake.snublejuice.no
 sudo certbot --nginx -d dagsord.no
 sudo certbot --nginx -d www.dagsord.no
-sudo certbot --nginx -d elektron.dagsord.no
 sudo certbot --nginx -d dilettant.no
 sudo certbot --nginx -d www.dilettant.no
 sudo certbot --nginx -d reinli.dilettant.no
