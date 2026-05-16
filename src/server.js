@@ -1,9 +1,5 @@
-import { Elysia } from "elysia";
-
-import lek from "./lek/app.js";
 import ord from "./ord/app.js";
 import reinli from "./reinli/app.js";
-import elektron from "./elektron/app.js";
 import dilettant from "./dilettant/app.js";
 
 const _PRODUCTION = process.env.ENVIRONMENT.trim() === "production";
@@ -11,58 +7,42 @@ const _PORT = process.env.PORT;
 
 const apps = {};
 if (_PRODUCTION) {
-  apps["lek.snublejuice.no"] = lek;
-
   apps["dagsord.no"] = ord;
   apps["www.dagsord.no"] = ord;
-
-  apps["elektron.dagsord.no"] = elektron;
-
   apps["dilettant.no"] = dilettant;
   apps["www.dilettant.no"] = dilettant;
-
   apps["reinli.dilettant.no"] = reinli;
 } else {
-  apps["lek.localhost"] = lek;
   apps["dagsord.localhost"] = ord;
-  apps["elektron.localhost"] = elektron;
   apps["dilettant.localhost"] = dilettant;
   apps["reinli.localhost"] = reinli;
 }
 
-new Elysia()
-  .all("*", async ({ request }) => {
+Bun.serve({
+  port: _PORT,
+  async fetch(request) {
     let hostname = request.headers.get("host") || "";
     hostname = hostname.split(":")[0];
 
-    // Redirect snublejus to snublejuice.
     if (hostname.includes("snublejus.no")) {
       const url = new URL(request.url);
       url.hostname = hostname.replace("snublejus.no", "snublejuice.no");
       return new Response(null, {
         status: 308,
-        headers: {
-          Location: url.toString(),
-        },
+        headers: { Location: url.toString() },
       });
     }
 
     const app = apps[hostname];
+    if (!app) return new Response("No vhost match", { status: 404 });
 
-    if (app) {
-      return await app.handle(request);
-    }
-
-    return new Response("No vhost match", { status: 404 });
-  })
-  .listen(_PORT);
+    return app(request);
+  },
+});
 
 console.log(`Server running at http://localhost:${_PORT}`);
 if (!_PRODUCTION) {
-  console.log(`http://lek.localhost:${_PORT}`);
   console.log(`http://dagsord.localhost:${_PORT}`);
-  console.log(`http://elektron.localhost:${_PORT}`);
   console.log(`http://dilettant.localhost:${_PORT}`);
   console.log(`http://reinli.localhost:${_PORT}`);
-  console.log(`http://snake.localhost:${_PORT}`);
 }
