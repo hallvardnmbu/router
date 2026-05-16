@@ -2,7 +2,7 @@ import ord from "./ord/app.js";
 import reinli from "./reinli/app.js";
 import dilettant from "./dilettant/app.js";
 
-const _PRODUCTION = process.env.ENVIRONMENT.trim() === "production";
+const _PRODUCTION = (process.env.ENVIRONMENT ?? "").trim() === "production";
 const _PORT = process.env.PORT;
 
 const apps = {};

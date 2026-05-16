@@ -10,6 +10,12 @@ git pull
 
 # To initialize the submodules.
 # git submodule update --init --recursive
+git submodule update --remote --merge
+
+cd src/reinli
+bun install
+bunx vite build
+cd ../..
 
 sudo systemctl daemon-reload
 sudo systemctl restart router
@@ -166,13 +172,13 @@ After=network.target
 
 [Service]
 Type=simple
-User=root
+User=snuble
 WorkingDirectory=/var/www/router
 
 Environment=ENVIRONMENT=production
 Environment=PORT=8080
 
-ExecStart=./start.sh
+ExecStart=/home/snuble/.bun/bin/bun run start
 Restart=always
 RestartSec=3
 
