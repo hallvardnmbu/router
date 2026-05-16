@@ -4,7 +4,8 @@ set -e
 git submodule update --remote --merge
 
 cd src/reinli
-bun run build
+bun install
+bunx vite build
 cd ../..
 
 bun run start
