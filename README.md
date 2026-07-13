@@ -14,7 +14,7 @@ git submodule update --remote --merge
 
 cd src/reinli
 bun install
-bunx vite build
+bun run build
 cd ../..
 
 sudo systemctl daemon-reload
