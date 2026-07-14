@@ -12,6 +12,8 @@ if (_PRODUCTION) {
   apps["dilettant.no"] = dilettant;
   apps["www.dilettant.no"] = dilettant;
   apps["reinli.dilettant.no"] = reinli;
+  apps["reinlidigital.no"] = reinli;
+  apps["www.reinlidigital.no"] = reinli;
 } else {
   apps["dagsord.localhost"] = ord;
   apps["dilettant.localhost"] = dilettant;

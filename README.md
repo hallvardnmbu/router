@@ -142,6 +142,42 @@ server {
 		proxy_cache_bypass $http_upgrade;
 	}
 }
+
+# reinlidigital.no
+server {
+	listen 80;
+	server_name reinlidigital.no;
+
+	location / {
+		proxy_pass http://localhost:8080;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_cache_bypass $http_upgrade;
+	}
+}
+
+# www.reinlidigital.no
+server {
+	listen 80;
+	server_name www.reinlidigital.no;
+
+	location / {
+		proxy_pass http://localhost:8080;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_cache_bypass $http_upgrade;
+	}
+}
 ```
 
 ## 4.
@@ -202,5 +238,7 @@ sudo certbot --nginx -d www.dagsord.no
 sudo certbot --nginx -d dilettant.no
 sudo certbot --nginx -d www.dilettant.no
 sudo certbot --nginx -d reinli.dilettant.no
+sudo certbot --nginx -d reinlidigital.no
+sudo certbot --nginx -d www.reinlidigital.no
 sudo systemctl reload nginx
 ```
