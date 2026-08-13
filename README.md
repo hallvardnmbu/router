@@ -178,6 +178,42 @@ server {
 		proxy_cache_bypass $http_upgrade;
 	}
 }
+
+# ferniss.no
+server {
+	listen 80;
+	server_name ferniss.no;
+
+	location / {
+		proxy_pass http://localhost:8080;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_cache_bypass $http_upgrade;
+	}
+}
+
+# www.ferniss.no
+server {
+	listen 80;
+	server_name www.ferniss.no;
+
+	location / {
+		proxy_pass http://localhost:8080;
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection 'upgrade';
+		proxy_set_header Host $host;
+		proxy_set_header X-Real-IP $remote_addr;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Proto $scheme;
+		proxy_cache_bypass $http_upgrade;
+	}
+}
 ```
 
 ## 4.
@@ -233,12 +269,6 @@ sudo systemctl status router
 
 ```bash
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d dagsord.no
-sudo certbot --nginx -d www.dagsord.no
-sudo certbot --nginx -d dilettant.no
-sudo certbot --nginx -d www.dilettant.no
-sudo certbot --nginx -d reinli.dilettant.no
-sudo certbot --nginx -d reinlidigital.no
-sudo certbot --nginx -d www.reinlidigital.no
+sudo certbot --nginx -d dagsord.no,www.dagsord.no,dilettant.no,www.dilettant.no,reinli.dilettant.no,reinlidigital.no,www.reinlidigital.no,ferniss.no,www.ferniss.no
 sudo systemctl reload nginx
 ```
