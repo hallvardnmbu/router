@@ -1,9 +1,10 @@
 import ord from "./ord/app.js";
 import reinli from "./reinli/app.js";
+import ferniss from "./ferniss/app.js";
 import dilettant from "./dilettant/app.js";
 
 const _PRODUCTION = (process.env.ENVIRONMENT ?? "").trim() === "production";
-const _PORT = process.env.PORT;
+const _PORT = process.env.PORT || "3000";
 
 const apps = {};
 if (_PRODUCTION) {
@@ -11,12 +12,15 @@ if (_PRODUCTION) {
   apps["www.dagsord.no"] = ord;
   apps["dilettant.no"] = dilettant;
   apps["www.dilettant.no"] = dilettant;
+  apps["ferniss.no"] = ferniss;
+  apps["www.ferniss.no"] = ferniss;
   apps["reinli.dilettant.no"] = reinli;
   apps["reinlidigital.no"] = reinli;
   apps["www.reinlidigital.no"] = reinli;
 } else {
   apps["dagsord.localhost"] = ord;
   apps["dilettant.localhost"] = dilettant;
+  apps["ferniss.localhost"] = ferniss;
   apps["reinli.localhost"] = reinli;
 }
 
@@ -46,5 +50,6 @@ console.log(`Server running at http://localhost:${_PORT}`);
 if (!_PRODUCTION) {
   console.log(`http://dagsord.localhost:${_PORT}`);
   console.log(`http://dilettant.localhost:${_PORT}`);
+  console.log(`http://ferniss.localhost:${_PORT}`);
   console.log(`http://reinli.localhost:${_PORT}`);
 }

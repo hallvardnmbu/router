@@ -16,3 +16,6 @@
 [submodule "src/reinli"]
 	path = src/reinli
 	url = https://github.com/hallvardnmbu/reinli.git
+[submodule "src/ferniss"]
+	path = src/ferniss
+	url = https://github.com/hallvardnmbu/ferniss.git
