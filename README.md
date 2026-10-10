@@ -2,25 +2,39 @@
 
 ## Refresh the app
 
+Pushing to `main` deploys automatically via `.github/workflows/deploy.yml`, which
+SSHs into the server and runs `scripts/deploy.sh`. It can also be run from the
+Actions tab ("Run workflow"), or by hand on the server:
+
 ```bash
-bun upgrade
-
-cd /var/www/router
-git pull
-
-# To initialize the submodules.
-# git submodule update --init --recursive
-git submodule update --remote --merge
-
-cd src/reinli
-bun install
-bun run build
-cd ../..
-
-sudo systemctl daemon-reload
-sudo systemctl restart router
-sudo systemctl status router
+bash /var/www/router/scripts/deploy.sh
 ```
+
+Submodules may also trigger the workflow from their repositories.
+
+### Automatic deploys (one-time setup)
+
+On the server, create a deploy key and allow the service restart without a password:
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/github_deploy -N ""
+cat ~/.ssh/github_deploy.pub >> ~/.ssh/authorized_keys
+cat ~/.ssh/github_deploy   # copy into the DEPLOY_SSH_KEY secret, then delete the file
+
+echo "snuble ALL=(root) NOPASSWD: /usr/bin/systemctl restart router, /usr/bin/systemctl is-active router" \
+  | sudo tee /etc/sudoers.d/router-deploy
+sudo chmod 440 /etc/sudoers.d/router-deploy
+```
+
+In GitHub, under Settings → Secrets and variables → Actions, add:
+
+- `DEPLOY_HOST`: the droplet's IP or hostname
+- `DEPLOY_USER`: `snuble`
+- `DEPLOY_SSH_KEY`: the private key above
+
+To deploy when a submodule repo is pushed, add a workflow there that sends a
+`repository_dispatch` event of type `deploy` to this repo (needs a token with
+access to `hallvardnmbu/router`).
 
 ## First-time setup
 
