@@ -14,5 +14,10 @@ cd src/reinli
 "$BUN" run build
 cd ../..
 
+cd src/ferniss
+"$BUN" install
+"$BUN" run build
+cd ../..
+
 sudo systemctl restart router
 sudo systemctl is-active router
