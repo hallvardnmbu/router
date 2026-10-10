@@ -3,12 +3,14 @@
 ## Refresh the app
 
 Pushing to `main` deploys automatically via `.github/workflows/deploy.yml`, which
-SSHes into the server and runs `scripts/deploy.sh`. It can also be run from the
+SSHs into the server and runs `scripts/deploy.sh`. It can also be run from the
 Actions tab ("Run workflow"), or by hand on the server:
 
 ```bash
 bash /var/www/router/scripts/deploy.sh
 ```
+
+Submodules may also trigger the workflow from their repositories.
 
 ### Automatic deploys (one-time setup)
 

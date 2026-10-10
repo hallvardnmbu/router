@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # Lets submodule repos trigger a deploy (see README).
+  # Lets submodule repos trigger a deploy.
   repository_dispatch:
     types: [deploy]
 

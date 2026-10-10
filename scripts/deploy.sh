@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Pull the latest code and submodules, rebuild, and restart the service.
-# Run on the server, either by hand or via .github/workflows/deploy.yml.
 set -euo pipefail
 
 BUN="$HOME/.bun/bin/bun"
