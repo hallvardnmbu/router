@@ -30,9 +30,9 @@ Bun.serve({
     let hostname = request.headers.get("host") || "";
     hostname = hostname.split(":")[0];
 
-    if (hostname.includes("snublejus.no")) {
+    if (hostname === "snublejus.no" || hostname.endsWith(".snublejus.no")) {
       const url = new URL(request.url);
-      url.hostname = hostname.replace("snublejus.no", "snublejuice.no");
+      url.hostname = hostname.replace(/snublejus\.no$/, "snublejuice.no");
       return new Response(null, {
         status: 308,
         headers: { Location: url.toString() },
@@ -42,7 +42,9 @@ Bun.serve({
     const app = apps[hostname];
     if (!app) return new Response("No vhost match", { status: 404 });
 
-    return app(request);
+    const response = await app(request);
+    if (!response.headers.has("X-Content-Type-Options")) response.headers.set("X-Content-Type-Options", "nosniff");
+    return response;
   },
 });
 
